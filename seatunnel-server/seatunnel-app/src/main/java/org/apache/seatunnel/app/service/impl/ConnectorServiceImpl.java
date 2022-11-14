@@ -17,67 +17,61 @@
 
 package org.apache.seatunnel.app.service.impl;
 
+import org.apache.seatunnel.app.bean.connector.ConnectorCache;
 import org.apache.seatunnel.app.domain.request.connector.ConnectorStatus;
 import org.apache.seatunnel.app.domain.response.connector.ConnectorInfo;
 import org.apache.seatunnel.app.service.IConnectorService;
-import org.apache.seatunnel.plugin.discovery.PluginIdentifier;
-import org.apache.seatunnel.plugin.discovery.seatunnel.SeaTunnelSourcePluginDiscovery;
+import org.apache.seatunnel.common.constants.PluginType;
+import org.apache.seatunnel.server.common.SeatunnelErrorEnum;
+import org.apache.seatunnel.server.common.SeatunnelException;
 
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Service
-@Slf4j
 public class ConnectorServiceImpl implements IConnectorService {
+
+    private final ConnectorCache connectorCache;
+
+    @Autowired
+    public ConnectorServiceImpl(ConnectorCache connectorCache) {
+        this.connectorCache = connectorCache;
+    }
+
     @Override
     public List<ConnectorInfo> listSources(ConnectorStatus status) {
         if (status == ConnectorStatus.ALL) {
-            // TODO
+            return connectorCache.getAllConnectors(PluginType.SOURCE);
         } else if (status == ConnectorStatus.DOWNLOADED) {
-            // TODO
+            return connectorCache.getDownLoadConnector(PluginType.SOURCE);
         } else if (status == ConnectorStatus.NOT_DOWNLOAD) {
-            // TODO
+            return connectorCache.getNotDownLoadConnector(PluginType.SOURCE);
         }
-        return null;
+        throw new SeatunnelException(SeatunnelErrorEnum.NO_SUCH_RESOURCE);
     }
 
     @Override
     public List<ConnectorInfo> listTransforms() {
-        Map<PluginIdentifier, String> result = new HashMap<>();
-
-        return null;
+        return connectorCache.getTransform();
     }
 
     @Override
     public List<ConnectorInfo> listSinks(ConnectorStatus status) {
         if (status == ConnectorStatus.ALL) {
-            // TODO
+            return connectorCache.getAllConnectors(PluginType.SINK);
         } else if (status == ConnectorStatus.DOWNLOADED) {
-            // TODO
+            return connectorCache.getDownLoadConnector(PluginType.SINK);
         } else if (status == ConnectorStatus.NOT_DOWNLOAD) {
-            // TODO
+            return connectorCache.getNotDownLoadConnector(PluginType.SINK);
         }
-        return null;
+        throw new SeatunnelException(SeatunnelErrorEnum.NO_SUCH_RESOURCE);
     }
 
-    private List<ConnectorInfo> getAllConnectorsFromPluginMapping() {
-
-        SeaTunnelSourcePluginDiscovery sourcePluginDiscovery = new SeaTunnelSourcePluginDiscovery();
-        Map<PluginIdentifier, String> result = new HashMap<>();
-
-        return null;
+    @Override
+    public void sync() throws IOException {
+        connectorCache.refresh();
     }
-
-    private List<ConnectorInfo> getDownloadedConnectors() {
-        return null;
-    }
-
-    private List<ConnectorInfo> getNotDownloadedConnectors() {
-        return null;
-    }
-
 }

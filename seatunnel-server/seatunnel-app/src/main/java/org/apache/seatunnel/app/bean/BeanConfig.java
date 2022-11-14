@@ -15,16 +15,21 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.app.domain.response.connector;
+package org.apache.seatunnel.app.bean;
 
-import org.apache.seatunnel.plugin.discovery.PluginIdentifier;
+import org.apache.seatunnel.app.bean.connector.ConnectorCache;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Data
-@AllArgsConstructor
-public class ConnectorInfo {
-    private PluginIdentifier pluginIdentifier;
-    private String artifactId;
+import java.io.IOException;
+
+@Configuration
+public class BeanConfig {
+
+    @Bean
+    public ConnectorCache connectorCache() throws IOException {
+        return new ConnectorCache();
+    }
+
 }

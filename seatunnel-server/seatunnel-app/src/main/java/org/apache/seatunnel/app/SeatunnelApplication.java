@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan({"org.apache.seatunnel.app.dal"})
 public class SeatunnelApplication {
     public static void main(String[] args) {
+        System.setProperty("SEATUNNEL_HOME", "/Users/fanjia/Code/seatunnel-fork/seatunnel-dist/target/apache-seatunnel-incubating-2.3.1-SNAPSHOT");
         SpringApplication.run(SeatunnelApplication.class, args);
     }
 }

@@ -30,11 +30,13 @@ ds:
   script:
     dir: /dj
   project:
-    default: test_dj
+    # please create it in DolphinScheduler then replace this
+    default: test
   tenant:
     default: default
   api:
-    token: 12345678
+    # please create it in DolphinScheduler then replace this
+    token: 7bdd0c42f31d945670fecbb7f491aad9
     prefix: http://127.0.0.1:12345/dolphinscheduler
 
 jwt:

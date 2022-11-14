@@ -15,16 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.app.domain.response.connector;
+package org.apache.seatunnel.app.service;
 
-import org.apache.seatunnel.plugin.discovery.PluginIdentifier;
+import org.apache.seatunnel.app.domain.response.engine.Engine;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.util.List;
 
-@Data
-@AllArgsConstructor
-public class ConnectorInfo {
-    private PluginIdentifier pluginIdentifier;
-    private String artifactId;
+public interface IEngineService {
+
+    List<Engine> listSupportEngines();
 }

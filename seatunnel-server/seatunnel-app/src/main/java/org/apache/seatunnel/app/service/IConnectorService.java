@@ -20,6 +20,7 @@ package org.apache.seatunnel.app.service;
 import org.apache.seatunnel.app.domain.request.connector.ConnectorStatus;
 import org.apache.seatunnel.app.domain.response.connector.ConnectorInfo;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IConnectorService {
@@ -29,4 +30,6 @@ public interface IConnectorService {
     List<ConnectorInfo> listTransforms();
 
     List<ConnectorInfo> listSinks(ConnectorStatus status);
+
+    void sync() throws IOException;
 }

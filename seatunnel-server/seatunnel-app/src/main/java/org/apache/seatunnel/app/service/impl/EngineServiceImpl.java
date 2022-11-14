@@ -15,16 +15,27 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.app.domain.response.connector;
+package org.apache.seatunnel.app.service.impl;
 
-import org.apache.seatunnel.plugin.discovery.PluginIdentifier;
+import org.apache.seatunnel.app.domain.response.engine.Engine;
+import org.apache.seatunnel.app.service.IEngineService;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.google.common.collect.Lists;
+import org.springframework.stereotype.Service;
 
-@Data
-@AllArgsConstructor
-public class ConnectorInfo {
-    private PluginIdentifier pluginIdentifier;
-    private String artifactId;
+import java.util.List;
+
+@Service
+public class EngineServiceImpl implements IEngineService {
+
+    private final ThreadLocal<List<Engine>> engines = ThreadLocal.withInitial(() -> Lists.newArrayList(
+        new Engine("Spark", "2.4.0"),
+        new Engine("Flink", "1.13.6"),
+        new Engine("SeaTunnel", "2.3,1")
+    ));
+
+    @Override
+    public List<Engine> listSupportEngines() {
+        return engines.get();
+    }
 }

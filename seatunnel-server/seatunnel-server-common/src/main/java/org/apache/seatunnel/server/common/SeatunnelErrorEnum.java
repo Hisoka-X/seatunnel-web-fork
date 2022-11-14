@@ -30,6 +30,8 @@ public enum SeatunnelErrorEnum {
 
     TOKEN_ILLEGAL(10008, "token illegal", "The token is expired or invalid, please login again."),
 
+    NO_SUCH_RESOURCE(10009, "no such resource", "No such resource. Please check your parameter."),
+
     /**
      * request dolphinscheduler failed
      */

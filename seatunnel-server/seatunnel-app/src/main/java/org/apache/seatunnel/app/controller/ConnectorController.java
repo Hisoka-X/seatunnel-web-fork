@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequestMapping("/api/v1/connector")
@@ -55,6 +56,13 @@ public class ConnectorController {
     @ApiOperation(value = "list all sink connector", httpMethod = "GET")
     public Result<List<ConnectorInfo>> listAllSink(@RequestParam(defaultValue = "ALL") ConnectorStatus status) {
         return Result.success(connectorService.listSinks(status));
+    }
+
+    @GetMapping("/sync")
+    @ApiOperation(value = "sync all connector from disk", httpMethod = "GET")
+    public Result<List<ConnectorInfo>> sync() throws IOException {
+        connectorService.sync();
+        return Result.success();
     }
 
 }
