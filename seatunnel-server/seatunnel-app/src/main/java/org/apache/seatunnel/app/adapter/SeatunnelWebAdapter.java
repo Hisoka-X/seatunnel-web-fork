@@ -45,7 +45,6 @@ public class SeatunnelWebAdapter implements WebMvcConfigurer {
         registry.addInterceptor(authenticationInterceptor()).order(1).addPathPatterns("/**")
                 // exclude swagger api path
                 .excludePathPatterns(
-                    "/**",
                     "/swagger-resources/**",
                     "/webjars/**",
                     "/v2/**",
